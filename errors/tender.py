@@ -1,0 +1,1 @@
+TenderNotFound = "tender not found"
