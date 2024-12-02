@@ -17,7 +17,7 @@ class BidDAO():
                 FROM tenders as a
                 JOIN bids as b
                 ON a.id=b.tender_id
-                WHERE a.employee_username = $1 AND a.status='Closed' AND b.status='Approved'
+                WHERE b.employee_username = $1 AND a.status='Closed' AND b.status='Approved'
                 """
                 rows = await connection.fetch(query, user)
                 results = [dict(row) for row in rows]

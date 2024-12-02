@@ -1,11 +1,12 @@
+from uuid import UUID
 from pydantic import BaseModel, EmailStr
-from typing import Optional
 
 class UserRegister(BaseModel):
     username: str
     password: str
     first_name: str
     last_name: str
+    organization_name: UUID
     
 
 

@@ -80,8 +80,6 @@ async def get_bid_status(bidId: UUID, user: str = Depends(get_current_user)):
     return result
 
 
-
-
 @router.put("/{bidId}/rollback/{version}")
 async def rollback_version(bidId: UUID, version:int, user: str = Depends(get_current_user)):
     result = await BidDAO.RollbackVersion(bidId, version)

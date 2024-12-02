@@ -22,6 +22,14 @@ async def get_tenders(user: str = Depends(get_current_user)):
     
     return result
 
+@router.get("/approved/")
+async def get_tenders(user: str = Depends(get_current_user)):
+    result = await TenderDAO.GetBidsApproved(user)
+
+    if result==InternalError:
+        raise HTTPException(status_code=500, detail=result)
+    return result
+
 
 @router.get("/{tenderId}/versions")
 async def get_tenders(tenderId:UUID, user: str = Depends(get_current_user)):

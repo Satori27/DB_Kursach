@@ -111,3 +111,10 @@ CREATE TYPE bid_status AS ENUM (
     'Approved',
     'Rejected'
 );
+
+
+INSERT INTO organization(name, description, type)
+VALUES('org1', 'desc1', 'IE');
+
+INSERT INTO organization(name, description, type)
+VALUES('org2', 'desc2', 'LLC');

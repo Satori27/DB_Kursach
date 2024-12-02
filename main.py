@@ -16,7 +16,7 @@ from bids.router import router as bid_router
 from errors.auth import *
 from users.router import router as auth_router
 
-# Запуск асинхронной функции
+
 # asyncio.run(DB.init_tables())
 
 app = FastAPI()
@@ -28,6 +28,6 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH"],  
-    allow_headers=["*"], 
+    allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allow_headers=["*"],
 )

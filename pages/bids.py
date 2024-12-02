@@ -161,7 +161,7 @@ def approved_bids():
     resp = send_request("/bids/approved/", "GET", cookies=cookies)
     if resp.status_code==200:
         if resp.json()==[]:
-            st.write("У вас нету предложений")
+            st.write("У вас нету активных предложений")
             return
         
         for js in resp.json():
@@ -181,5 +181,6 @@ def approved_bids():
             st.write(f"Имя предложения: \"{bid_name}\"")
             st.write(f"Описание предложения: {bid_description}")
             st.write(f"Статус: {bid_status}")
-            
+
+
 

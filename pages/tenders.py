@@ -188,3 +188,31 @@ def bids_to_tenders():
                     response = send_request(f"/bids/{bid_id}/edit", method="PATCH", cookies=cookies, data={"status": "Rejected"})
                     if response.status_code==200:
                         st.success("Предложение отклонено")
+
+
+
+def approved_tenders():
+    cookies = st.session_state["cookies"]
+    resp = send_request("/tenders/approved/", "GET", cookies=cookies)
+    if resp.status_code==200:
+        if resp.json()==[]:
+            st.write("У вас нету активных тендеров")
+            return
+        
+        for js in resp.json():
+
+            name = js["tender_name"]
+            description = js["tender_description"]
+            status = js["tender_status"]
+
+            st.subheader(f"Имя тендера: {name}")
+            st.write(f"Описание тендера: {description}")
+            st.write(f"Статус: {status}")
+
+            bid_name = js["bid_name"]
+            bid_description = js["bid_description"]
+            bid_status = js["bid_status"]
+            st.text("\n")
+            st.write(f"Имя предложения: \"{bid_name}\"")
+            st.write(f"Описание предложения: {bid_description}")
+            st.write(f"Статус: {bid_status}")

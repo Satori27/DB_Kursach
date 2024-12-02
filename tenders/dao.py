@@ -28,6 +28,27 @@ class TenderDAO():
         finally:
             await close_connection_pool(connection_pool)
 
+    async def GetBidsApproved(user:str):
+        connection_pool: asyncpg.Pool = await create_connection_pool()
+        try:
+            async with connection_pool.acquire() as connection:
+                query = """
+                SELECT a.id as tender_id, a.name as tender_name, a.description as tender_description, a.status as tender_status, b.id as bid_id, b.name as bid_name, b.description as bid_description, b.status as bid_status
+                FROM tenders as a
+                JOIN bids as b
+                ON a.id=b.tender_id
+                WHERE a.employee_username = $1 AND a.status='Closed' AND b.status='Approved'
+                """
+                rows = await connection.fetch(query, user)
+                results = [dict(row) for row in rows]
+            return results
+        except Exception as e:
+            print(f"Ошибка: BidDAO.GetBidsApproved {e}")
+            return InternalError
+        finally:
+            await close_connection_pool(connection_pool)
+            
+
     async def GetTenderBids(user:str):
         connection_pool: asyncpg.Pool = await create_connection_pool()
         try:
